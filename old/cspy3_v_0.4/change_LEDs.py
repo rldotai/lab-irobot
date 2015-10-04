@@ -120,7 +120,6 @@ def setLEDs(ser, playOn=False, advOn=False, powColor=0, powIntensity=0):
 	ret = sendCmd(ser, cmdLst)
 	return ret
 
-
 def pwmLowSideDrivers(ser, pct0=0, pct1=0, pct2=0):
 	""" Set up pulse-width modulation on the low side drivers by specifying
 		the percentage of maximum power (w/ 7 bit resolution)."""

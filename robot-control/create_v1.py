@@ -5,14 +5,19 @@ import serial
 
 
 # Opcodes
+OP_SOFT_RESET = 7       # The (potentially dangerous) soft reset
 OP_PASSIVE = 128        # Set the robot's mode to passive
+OP_BAUD = 129           # Change the robot's baud rate
 OP_CONTROL = 130        # Set the robot's mode to "safe"
 OP_FULL = 132           # Set the robot's mode to "full"
-OP_BAUD = 129           # Change the robot's baud rate
-OP_STREAM = 148         # Request a stream of sensor data from the robot
-OP_PAUSE  = 150         # Pause (or unpause) the robot's sensor data stream
+OP_LSD        = 138     # Low Side Drivers
+OP_LEDS       = 139     # LEDs
 OP_QUERY  = 142         # Request the value for a single sensor
+OP_PWM_LSD    = 144     # Pulse width modulation, low side drivers
+OP_DRIVE      = 145     # Drive command
+OP_STREAM = 148         # Request a stream of sensor data from the robot
 OP_QUERY_LIST = 149     # Request the values for a list of sensors
+OP_PAUSE  = 150         # Pause (or unpause) the robot's sensor data stream
 
 # The parameters for opening the serial port
 SERIAL_PARAMS = {"baudrate":    57600,
