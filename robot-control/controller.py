@@ -85,6 +85,17 @@ class Controller:
         print(sensor_ids)
         return self.send_cmd(create.OP_STREAM, length, *sensor_ids)
 
+    def run_demo(self, num):
+        """Run a built-in demo.
+        num : 0, 1, 2, ..., 9
+        """
+        ret = self.stop_demo()
+        ret += self.send_cmd(create.OP_DEMO, num)
+        return ret 
+
+    def stop_demo(self):
+        return self.send_cmd(create.OP_DEMO, 255)
+
     def set_led(self, playOn=False, advOn=False, powColor=0, powIntensity=0):
         # Set up byte for the Advance and Play LEDs
         tmp = 0

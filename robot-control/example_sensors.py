@@ -1,5 +1,5 @@
 """
-An example use of the `controller.py` module.
+An example use of the `controller.py` module to get sensor information.
 """
 from controller import *
 import json
@@ -11,8 +11,8 @@ import selectors
 if __name__ == "__main__":
     port = '/dev/ttyUSB0'
     
-    # sensor_ids = [21, 22, 23, 24, 25, 26] # battery information
-    sensor_ids = [27, 28, 29, 30, 31] # sensor information
+    sensor_ids = [21, 22, 23, 24, 25, 26] # battery information
+    # sensor_ids = [27, 28, 29, 30, 31] # sensor information
 
 
     # Open the serial port
@@ -26,13 +26,9 @@ if __name__ == "__main__":
         # Set mode to passive
         robot.mode_passive()
 
-        # Set mode to full
-        robot.mode_full()
-
         # Request sensor data and set up handler
         pp = csp3(sensor_ids)
         robot.request_stream(*sensor_ids)
-        robot.run_demo(4)
 
         # Testing -- MODIFY
         # requesting a stream should return a generator?
@@ -56,7 +52,8 @@ if __name__ == "__main__":
 
     except KeyboardInterrupt:
         print('\nReceived KeyboardInterrupt, exiting')
+    except Exception as e:
+        raise(e)
     finally:
         print("Shutting down robot and closing serial port...")
-        robot.stop_demo()
         robot.shutdown()

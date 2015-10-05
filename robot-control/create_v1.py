@@ -10,6 +10,7 @@ OP_PASSIVE = 128        # Set the robot's mode to passive
 OP_BAUD = 129           # Change the robot's baud rate
 OP_CONTROL = 130        # Set the robot's mode to "safe"
 OP_FULL = 132           # Set the robot's mode to "full"
+OP_DEMO = 136           # Request built-in demo
 OP_LSD        = 138     # Low Side Drivers
 OP_LEDS       = 139     # LEDs
 OP_QUERY  = 142         # Request the value for a single sensor

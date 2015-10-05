@@ -1,5 +1,5 @@
 """
-An example use of the `controller.py` module.
+An example use of the `controller.py` module to run a builtin demo.
 """
 from controller import *
 import json
@@ -13,6 +13,8 @@ if __name__ == "__main__":
     
     # sensor_ids = [21, 22, 23, 24, 25, 26] # battery information
     sensor_ids = [27, 28, 29, 30, 31] # sensor information
+    sensor_ids = [25, 26, 27, 28, 29, 30, 31] # battery information + sensors
+
 
 
     # Open the serial port
@@ -56,6 +58,8 @@ if __name__ == "__main__":
 
     except KeyboardInterrupt:
         print('\nReceived KeyboardInterrupt, exiting')
+    except Exception as e:
+        raise(e)
     finally:
         print("Shutting down robot and closing serial port...")
         robot.stop_demo()

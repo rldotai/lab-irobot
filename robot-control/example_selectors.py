@@ -1,20 +1,20 @@
 """
-An example use of the `controller.py` module.
+An example use of the `controller.py` module, with selectors.
 """
 from controller import *
-import json
 import selectors
 
+def gen_queue(parser):
+    """Read from the packet parser as a generator."""
+    lst = parser.buffer
+    while True:
+        if lst:
+            yield lst.pop(0)
+        else:
+            yield None
 
 
-
-if __name__ == "__main__":
-    port = '/dev/ttyUSB0'
-    
-    # sensor_ids = [21, 22, 23, 24, 25, 26] # battery information
-    sensor_ids = [27, 28, 29, 30, 31] # sensor information
-
-
+def main(port, sensor_ids):
     # Open the serial port
     try:
         print("Opening port at:", port)
@@ -32,31 +32,28 @@ if __name__ == "__main__":
         # Request sensor data and set up handler
         pp = csp3(sensor_ids)
         robot.request_stream(*sensor_ids)
-        robot.run_demo(4)
 
-        # Testing -- MODIFY
-        # requesting a stream should return a generator?
-        # or some other way of making it nonblocking...
-        
-        # Use `selectors` for IO readiness
         sel = selectors.DefaultSelector()
         sel.register(robot.ser, selectors.EVENT_READ)
-
+        gen = gen_queue(pp.buffer)
         while True:
             events = sel.select()
-            data = robot.ser.read()
-            
-            # Pass received data into the packet parser
+            data = robot.ser.read() # as a generator...
+            # print(ready, ord(data))
             pp.input(data)
-
-            # Check if a packet has been assembled by the parser
-            if pp.buffer:
-                dct = pp.buffer.pop(0)
-                print(json.dumps(dct, indent=2))
+            pkt = next(gen)
+            if pkt:
+                print("Praise Thor! The generator works!")
+                print(pkt)
 
     except KeyboardInterrupt:
         print('\nReceived KeyboardInterrupt, exiting')
     finally:
         print("Shutting down robot and closing serial port...")
-        robot.stop_demo()
         robot.shutdown()
+
+
+if __name__ == "__main__":
+    port_name = '/dev/ttyUSB0'
+    pkt_ids = [21, 22, 23, 24, 25, 26] # battery information
+    main(port_name, pkt_ids)

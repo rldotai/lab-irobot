@@ -67,7 +67,6 @@ class csp3:
     def store(self, pkt):
         # print(pkt) # TODO: REMOVE
         dct = {k: v for k, v in zip(self.names, pkt)}
-        print(dct) # TODO: REMOVE
         self.buffer.append(dct)
 
     def input(self, *byte_lst):
