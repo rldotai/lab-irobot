@@ -177,3 +177,13 @@ resize2fs /dev/mmcblk0p2
 ```
 
 Check that everything worked properly with `df -h`.
+
+# Miscellaneous
+
+## Change Hostname
+
+## Create User Account
+
+## Change Root Password
+
+## Disable SSH Logins as Root
