@@ -1,3 +1,6 @@
+# Components for working with the Raspberry and the iRobot Creates
+
+Some quick notes about what you need, and what's nice to have.
 
 - [ ] Wires for connecting the Raspberry Pi to the robot's power supply.
 - [ ] A UBEC for regulating the voltate drawn by the Pi.
